@@ -1,7 +1,7 @@
 import express  from 'express';
 import { Server } from 'socket.io';
 import handlebars from 'express-handlebars';
-import viewsRouter from './routes/views.router.js';
+import viewsRouter from './routes/views.routes.js';
 import __dirname from './utils.js';
 
 const app = express ();
@@ -14,7 +14,7 @@ app.set('view engine', 'handlebars');
 
 app.use('/', viewsRouter);
 
-const server = app.listen(8081, ()=> console.log("Server running"));
+const server = app.listen(8081, ()=> console.log("Server running puerto 8081"));
 
 const io = new Server (server);
 
