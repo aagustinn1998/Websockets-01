@@ -1,34 +1,27 @@
 <div class="container">
-    <h2>Formulario de Productos</h2>
-    <form onsubmit="guardarFormulario(); return false;">
-      <div class="form-group">
-        <label for="title">Título:</label>
-        <input type="text" id="title" name="title">
-      </div>
-      <div class="form-group">
-        <label for="description">Descripción:</label>
-        <textarea id="description" name="description"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="thumbnailUrl">URL de la imagen:</label>
-        <input type="text" id="thumbnailUrl" name="thumbnailUrl">
-      </div>
-      <div class="form-group">
-        <label for="price">Precio:</label>
-        <input type="text" id="price" name="price">
-      </div>
-      <div class="form-group">
-        <label for="code">Código:</label>
-        <input type="text" id="code" name="code">
-      </div>
-      <div class="form-group">
-        <label for="stock">Stock:</label>
-        <input type="text" id="stock" name="stock">
-      </div>
-      <button type="submit">Guardar</button>
-    </form>
-  </div>
-
-  
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>
+    <h2>Lista de Productos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Thumbnail</th>
+                <th>Código</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody id="listProducts">
+            {{#each productos}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.price}}</td>
+                <td><img src="{{this.thumbnailUrl}}"></td>
+                <td>{{this.code}}</td>
+                <td>{{this.stock}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

@@ -1,8 +1,8 @@
 const socket = io();
 
 socket.on("newProductsList", (products) => {
-  const listProducts = document.getElementById("listProducts");
-  listProducts.innerHTML = "";
+  const productList = document.getElementById("productList");
+  productList.innerHTML = "";
   for (const product of products) {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -12,9 +12,9 @@ socket.on("newProductsList", (products) => {
           <td><img class="thumbnail-img" src="${product.thumbnail}" alt="Thumbnail"></td>
           <td>${product.code}</td>
           <td>${product.stock}</td>
-          <td>${product.id}</td>
+          <td>${product._id}</td>
         `;
-        listProducts.appendChild(row);
+    productList.appendChild(row);
   }
 });
 
