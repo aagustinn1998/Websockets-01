@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductManagerDao from "../dao/managers/productManager.managers.js";
+import ProductManagerDao from "../dao/managers";
 
 export default class ProductRouter {
   path = "/product";
