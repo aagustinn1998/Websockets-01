@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductManagerDao from "../dao/managers";
+import ProductManagerDao from "../dao/managers/productManager.managers.js";
 
 export default class ProductRouter {
   path = "/product";
@@ -11,21 +11,24 @@ export default class ProductRouter {
   }
 
   initProductRoutes() {
+    // Get products
     this.router.get(`${this.path}`, async (req, res) => {
       try {
-        const { limit } = req.query;
-        const products = await this.productManager.getAllProducts(limit);
+        const { limit, page, sort, query } = req.query;
+        const products = await this.productManager.getAllProducts(limit, page, sort, query, req.baseUrl);
         res.status(200);
-        res.send(products);
+        res.send({
+          ...products,
+          status: "success",
+        });
         return;
-      } catch (error) {
-        res.status(500);
-        res.send(error);
+      } catch ({ message }) {
+        res.status(500).send({ status: "error", payload: message });
+        return;
       }
-      return;
     });
 
-   
+    //Get product by ID
     this.router.get(`${this.path}/:pid`, async (req, res) => {
       const productId = req.params.pid;
       const product = await this.productManager.getProductById(productId);
@@ -37,7 +40,7 @@ export default class ProductRouter {
       }
     });
 
-
+    //Post
     this.router.post(`${this.path}`, async (req, res) => {
       const { body, io } = req;
       const newProduct = await this.productManager.addProduct(body);
@@ -54,7 +57,7 @@ export default class ProductRouter {
       res.status(200).json(newProduct);
     });
 
-
+    //Put
     this.router.put(`${this.path}/:pid`, async (req, res) => {
       try {
         const productId = req.params.pid;
@@ -78,7 +81,7 @@ export default class ProductRouter {
       }
     });
 
-
+    //Delete
     this.router.delete(`${this.path}/:pid`, async (req, res) => {
       try {
         const productId = req.params.pid;
